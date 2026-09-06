@@ -1,0 +1,7 @@
+/* ----------------------- Tailwind Css ------------------------ */
+@import "tailwindcss";
+ @theme{
+    --font-dancingScript: "Dancing Script", "cursive";
+    --font-coiny: "Coiny", "system-ui";
+    --font-sriracha:  "Sriracha", "cursive";
+ }
