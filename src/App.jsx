@@ -31,16 +31,18 @@ const App = () => {
   const [animateOut, setAnimateOut] = useState(false);
 
   useEffect(() => {
+    if (showMoon) return; // don't start the cake timers until Moon is dismissed
+
     const timer1 = setTimeout(() => setAnimateOut(true), 9400);
     const timer2 = setTimeout(() => setShowContent(true), 9600);
     const timer3 = setTimeout(() => setLoading(false), 10000);
 
     return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+        clearTimeout(timer3);
     };
-  }, []);
+  }, [showMoon]);
 
   return (
     <>
