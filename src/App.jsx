@@ -7,6 +7,7 @@ import Layout from './layout/Layout'
 import Home from './pages/Home'
 import LoveLetter from './pages/LoveLetter'
 import Test from './pages/Test'
+import MoonKeepSake from './pages/MoonKeepSake'
 import OpeningAnimation from './components/OpeningAnimation'
 
 const App = () => {
@@ -21,14 +22,15 @@ const App = () => {
     </Route>
   ))
 
+  // ------------------ Moon keepsake gate (this shows FIRST, before anything else)
+  const [showMoon, setShowMoon] = useState(true);
 
   // ------------------Cake loader 
   const [loading, setLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
-  const [animateOut, setAnimateOut] = useState(false); // New state for animation
+  const [animateOut, setAnimateOut] = useState(false);
 
   useEffect(() => {
-    // Start animation timers immediately on mount to prevent waiting for external asset network loads
     const timer1 = setTimeout(() => setAnimateOut(true), 9400);
     const timer2 = setTimeout(() => setShowContent(true), 9600);
     const timer3 = setTimeout(() => setLoading(false), 10000);
@@ -43,10 +45,13 @@ const App = () => {
   return (
     <>
       {
-        loading && <OpeningAnimation animateOut={animateOut}/>
+        showMoon && <MoonKeepSake onContinue={() => setShowMoon(false)} />
       }
       {
-        showContent && <RouterProvider router={MyRoute} />
+        !showMoon && loading && <OpeningAnimation animateOut={animateOut} />
+      }
+      {
+        !showMoon && showContent && <RouterProvider router={MyRoute} />
       }
     </>
   )
